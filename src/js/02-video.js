@@ -1,31 +1,30 @@
 import Player from '@vimeo/player';
 
-// const player = new Player('handstick', {
-//   id: 19231868,
-//   width: 640,
-// });`
-
-// player.on('play', function () {
-//   console.log('played the video!');
-// });
 const options = {
   id: 59777392,
   width: 640,
   loop: true,
 };
 
-const iframe = document.querySelector('iframe');
-const player = new Vimeo.Player(iframe);
-
-const onPlay = function (data) {
-  // data is an object containing properties specific to that event
+const play = {
+  duration: 61.857,
+  percent: 0,
+  seconds: 0,
 };
 
-player.on('e', function (data) {
-  // data is an object containing properties specific to that event
-});
+const playing = {
+  duration: 61.857,
+  percent: 0,
+  seconds: 0,
+};
 
-player.on('play', onPlay);
+const timeUpdate = {
+  duration: 61.857,
+  percent: 0.049,
+  seconds: 3.034,
+};
+const iframe = document.querySelector('iframe');
+const player = new Vimeo.Player(iframe);
 
 player.on('play', function () {
   console.log('played the video!');
@@ -34,3 +33,34 @@ player.on('play', function () {
 player.getVideoTitle().then(function (title) {
   console.log('title:', title);
 });
+
+const onPlay = function ({ duration, percent, seconds }) {
+  //   // data is an object containing properties specific to that event
+};
+
+player.on('play', onPlay);
+
+const LOCALSTORAGE_KEY_VIMEO = 'videoplayer-current-time';
+
+player.on('timeupdate', function (timeUpdate) {
+  // data is an object containing properties specific to that event
+  localStorage.setItem(LOCALSTORAGE_KEY_VIMEO, 'timeupdate');
+  console.log('timeupdate');
+});
+
+player
+  .setCurrentTime(30.456)
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
