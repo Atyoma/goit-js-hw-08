@@ -25,7 +25,6 @@ function leavesData() {
 
   if (!savedMessage) return;
 
-  console.log(savedMessage);
   inputRef.value = savedMessage.email || '';
   textareaRef.value = savedMessage.message || '';
 }
