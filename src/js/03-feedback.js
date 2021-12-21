@@ -33,6 +33,6 @@ function leavesData() {
 function saveData(evt) {
   evt.preventDefault();
   formRef.reset();
+  console.log('Oтправлено:', JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
   localStorage.removeItem(LOCALSTORAGE_KEY);
-  console.log('Oтправлено:', formData);
 }
